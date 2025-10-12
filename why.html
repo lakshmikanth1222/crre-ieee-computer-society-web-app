@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Join IEEE? - IEEE Computer Society</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Custom styles for animations, theme, and flash cards */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Orange theme colors */
+        :root {
+            --primary-orange: #F97316;
+            --dark-orange: #EA580C;
+            --light-orange-bg: #FFF7ED;
+        }
+
+        .text-primary {
+            color: var(--primary-orange);
+        }
+
+        .bg-primary {
+            background-color: var(--primary-orange);
+        }
+
+        .bg-dark-orange {
+            background-color: var(--dark-orange);
+        }
+        
+        .bg-light-orange {
+            background-color: var(--light-orange-bg);
+        }
+
+        .border-primary {
+            border-color: var(--primary-orange);
+        }
+
+        /* Flash Card Styles */
+        .flash-card-container {
+            perspective: 1500px;
+            height: 400px;
+        }
+
+        .flash-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .flash-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flash-card-front, .flash-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .flash-card-front {
+            background: linear-gradient(135deg, #F97316, #EA580C);
+            color: white;
+        }
+
+        .flash-card-back {
+            background: white;
+            color: #1a202c;
+            transform: rotateY(180deg);
+            text-align: left;
+            overflow-y: auto;
+        }
+
+        .flash-card-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .flash-card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .flash-card-front .flash-card-description {
+            font-size: 1.1rem;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .flash-card-back-content {
+            width: 100%;
+            height: 100%;
+        }
+
+        .flash-card-back-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-orange);
+            text-align: center;
+        }
+
+        .flash-card-back-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .flash-card-back-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .flash-card-back-list li:before {
+            content: "•";
+            color: var(--primary-orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Navigation styles */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animation classes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-orange);
+            border-radius: 4px;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-orange);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-5px);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #F97316, #EA580C);
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Section backgrounds */
+        .section-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.05) 0%, rgba(234, 88, 12, 0.05) 100%);
+            z-index: -1;
+        }
+
+        /* Floating shapes */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            background: var(--primary-orange);
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index1.html" class="text-2xl font-bold text-white flex items-center">
+                <span class="bg-primary p-2 rounded-lg mr-2">IEEE</span>
+                <span>Computer Society</span>
+            </a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="text-white hover:text-primary transition duration-300">Home</a>
+                <a href="index.html#events" class="text-white hover:text-primary transition duration-300">Events</a>
+                <a href="index.html#benefits" class="text-white hover:text-primary transition duration-300">Benefits</a>
+                <a href="why.html" class="text-white hover:text-primary transition duration-300 font-bold underline">Why we need to Join?</a>
+                <a href="index.html#contact" class="bg-primary text-white py-2 px-5 rounded-full hover:bg-dark-orange transition duration-300 shadow-lg">
+                    Join Us
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/90 backdrop-blur-sm">
+            <a href="index.html" class="block py-3 px-6 text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">Home</a>
+            <a href="index.html#events" class="block py-3 px-6 text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">Events</a>
+            <a href="index.html#benefits" class="block py-3 px-6 text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">Benefits</a>
+            <a href="why.html" class="block py-3 px-6 text-gray-800 hover:bg-primary hover:text-white transition-all duration-300 font-bold">Why Join?</a>
+            <a href="index.html#contact" class="block py-3 px-6 text-gray-800 hover:bg-primary hover:text-white transition-all duration-300">Join Us</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 flex items-center justify-center text-white text-center overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 animate-fadeInUp">
+                what are the benifits of <span class="text-primary">IEEE</span>?
+            </h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto animate-fadeInUp" style="animation-delay: 0.3s">
+                Discover how IEEE and IEEE Computer Society can transform your career and connect you with the global technology community
+            </p>
+        </div>
+    </section>
+
+    <!-- Flash Cards Section -->
+    <section class="py-20 bg-light-orange section-bg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4 animate-fadeInUp">Explore the Benefits</h2>
+            <p class="text-xl text-center mb-12 max-w-3xl mx-auto text-gray-600 animate-fadeInUp" style="animation-delay: 0.2s">
+                Click on each card to discover more about IEEE and IEEE Computer Society
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1: About IEEE -->
+                <div class="flash-card-container animate-fadeInUp">
+                    <div class="flash-card">
+                        <div class="flash-card-front">
+                            <div class="flash-card-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <h3 class="flash-card-title">About IEEE</h3>
+                            <p class="flash-card-description">The world's largest technical professional organization</p>
+                            <div class="mt-6 text-sm">
+                                <p>Click to flip</p>
+                                <i class="fas fa-sync-alt mt-2"></i>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                            <div class="flash-card-back-content">
+                                <h3 class="flash-card-back-title">About IEEE</h3>
+                                <p class="mb-4">IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity.</p>
+                                <ul class="flash-card-back-list">
+                                    <li>Founded in 1963 from the merger of AIEE and IRE</li>
+                                    <li>Over 400,000 members in 160+ countries</li>
+                                    <li>Publishes 30% of world's literature in electrical engineering, electronics, and computer science</li>
+                                    <li>Develops over 1,300 active standards</li>
+                                    <li>Sponsors more than 1,800 conferences annually</li>
+                                    <li>Provides educational resources and career development tools</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: About IEEE Computer Society -->
+                <div class="flash-card-container animate-fadeInUp" style="animation-delay: 0.1s">
+                    <div class="flash-card">
+                        <div class="flash-card-front">
+                            <div class="flash-card-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="flash-card-title">IEEE Computer Society</h3>
+                            <p class="flash-card-description">The premier source for information, inspiration, and collaboration in computer science and engineering.</p>
+                            <div class="mt-6 text-sm">
+                                <p>Click to flip</p>
+                                <i class="fas fa-sync-alt mt-2"></i>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                            <div class="flash-card-back-content">
+                                <h3 class="flash-card-back-title">IEEE Computer Society</h3>
+                                <p class="mb-4">The IEEE Computer Society is the premier organization for computer professionals, with over 60,000 members worldwide.</p>
+                                <ul class="flash-card-back-list">
+                                    <li>Founded in 1946 as part of the American Institute of Electrical Engineers</li>
+                                    <li>Leading provider of technical information, community services, and educational programs</li>
+                                    <li>Publishes 17 peer-reviewed magazines and journals</li>
+                                    <li>Sponsors 200+ technical conferences and workshops each year</li>
+                                    <li>Develops and maintains over 200 active standards</li>
+                                    <li>Provides professional certification programs</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Career Benefits -->
+                <div class="flash-card-container animate-fadeInUp" style="animation-delay: 0.2s">
+                    <div class="flash-card">
+                        <div class="flash-card-front">
+                            <div class="flash-card-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h3 class="flash-card-title">Career Advancement</h3>
+                            <p class="flash-card-description">Boost your career with IEEE resources and networking opportunities</p>
+                            <div class="mt-6 text-sm">
+                                <p>Click to flip</p>
+                                <i class="fas fa-sync-alt mt-2"></i>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                            <div class="flash-card-back-content">
+                                <h3 class="flash-card-back-title">Career Advancement</h3>
+                                <p class="mb-4">IEEE provides numerous resources to help you advance in your career and stay competitive in the job market.</p>
+                                <ul class="flash-card-back-list">
+                                    <li>Access to the IEEE Job Site with thousands of tech positions</li>
+                                    <li>Professional development courses and certifications</li>
+                                    <li>Resume building and career coaching services</li>
+                                    <li>Networking events with industry leaders</li>
+                                    <li>Leadership opportunities in local chapters and committees</li>
+                                    <li>Mentorship programs for students and young professionals</li>
+                                    <li>Recognition through awards and scholarships</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Learning Resources -->
+                <div class="flash-card-container animate-fadeInUp" style="animation-delay: 0.3s">
+                    <div class="flash-card">
+                        <div class="flash-card-front">
+                            <div class="flash-card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="flash-card-title">Learning Resources</h3>
+                            <p class="flash-card-description">Access cutting-edge research and educational materials</p>
+                            <div class="mt-6 text-sm">
+                                <p>Click to flip</p>
+                                <i class="fas fa-sync-alt mt-2"></i>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                            <div class="flash-card-back-content">
+                                <h3 class="flash-card-back-title">Learning Resources</h3>
+                                <p class="mb-4">IEEE provides unparalleled access to technical knowledge and learning opportunities.</p>
+                                <ul class="flash-card-back-list">
+                                    <li>IEEE Xplore Digital Library with over 5 million documents</li>
+                                    <li>Free online courses through IEEE Learning Network</li>
+                                    <li>Access to standards that shape the industry</li>
+                                    <li>Technical books and e-books at discounted rates</li>
+                                    <li>Webinars and virtual events with experts</li>
+                                    <li>Continuing Education Units (CEUs) for professional development</li>
+                                    <li>Student scholarships and travel grants</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Networking -->
+                <div class="flash-card-container animate-fadeInUp" style="animation-delay: 0.4s">
+                    <div class="flash-card">
+                        <div class="flash-card-front">
+                            <div class="flash-card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="flash-card-title">Global Networking</h3>
+                            <p class="flash-card-description">Connect with professionals and experts worldwide</p>
+                            <div class="mt-6 text-sm">
+                                <p>Click to flip</p>
+                                <i class="fas fa-sync-alt mt-2"></i>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                            <div class="flash-card-back-content">
+                                <h3 class="flash-card-back-title">Global Networking</h3>
+                                <p class="mb-4">Build valuable connections with professionals, researchers, and industry leaders across the globe.</p>
+                                <ul class="flash-card-back-list">
+                                    <li>Join local chapters and technical communities</li>
+                                    <li>Attend international conferences and workshops</li>
+                                    <li>Participate in technical committees and working groups</li>
+                                    <li>Connect through IEEE Collabratec platform</li>
+                                    <li>Access to specialized technical societies</li>
+                                    <li>Opportunities for collaboration on research projects</li>
+                                    <li>Meet potential employers and mentors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Student Benefits -->
+                <div class="flash-card-container animate-fadeInUp" style="animation-delay: 0.5s">
+                    <div class="flash-card">
+                        <div class="flash-card-front">
+                            <div class="flash-card-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h3 class="flash-card-title">Student Benefits</h3>
+                            <p class="flash-card-description">Special advantages for student members</p>
+                            <div class="mt-6 text-sm">
+                                <p>Click to flip</p>
+                                <i class="fas fa-sync-alt mt-2"></i>
+                            </div>
+                        </div>
+                        <div class="flash-card-back">
+                            <div class="flash-card-back-content">
+                                <h3 class="flash-card-back-title">Student Benefits</h3>
+                                <p class="mb-4">IEEE offers unique benefits designed specifically for students to support their academic and professional growth.</p>
+                                <ul class="flash-card-back-list">
+                                    <li>Discounted membership rates for students</li>
+                                    <li>Free access to IEEE Xplore Digital Library</li>
+                                    <li>Opportunities to participate in student competitions</li>
+                                    <li>Student branch activities and leadership roles</li>
+                                    <li>Scholarships, awards, and travel grants</li>
+                                    <li>Free or discounted conference registration</li>
+                                    <li>Career resources and internship opportunities</li>
+                                    <li>Mentorship from industry professionals</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-20 bg-gray-800 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6 animate-fadeInUp">Ready to Join Our Community?</h2>
+            <p class="text-xl max-w-3xl mx-auto mb-8 animate-fadeInUp" style="animation-delay: 0.2s">
+                Become part of the world's largest community of technology professionals and unlock your potential
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fadeInUp" style="animation-delay: 0.4s">
+                <a href="index.html#contact" class="bg-primary text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-dark-orange transition duration-300 shadow-lg">
+                    Join IEEE Now
+                </a>
+                <a href="index.html" class="bg-transparent border-2 border-white text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-800 transition duration-300">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 IEEE Computer Society - CRRE Student Branch. All Rights Reserved.</p>
+            <p class="text-sm">Contact: <a href="mailto:ieeecs@crr.ac.in" class="hover:text-white transition-colors">ieeecs@crr.ac.in</a> | CRR College of Engineering, Eluru</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for flash cards and animations
+
+        // 1. Flash Card Flip Functionality
+        document.querySelectorAll('.flash-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+        });
+
+        // 2. Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Hide mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 3. Navbar style change on scroll
+        const header = document.getElementById('header');
+        const navElementsToColor = document.querySelectorAll('header nav a:not(.bg-primary), header nav button');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-nav', 'shadow-lg');
+                navElementsToColor.forEach(el => {
+                    el.classList.remove('text-white');
+                    el.classList.add('text-gray-800');
+                });
+            } else {
+                header.classList.remove('glass-nav', 'shadow-lg');
+                 navElementsToColor.forEach(el => {
+                    el.classList.add('text-white');
+                    el.classList.remove('text-gray-800');
+                });
+            }
+        });
+
+        // 4. Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 5. Progress bar
+        const progressBar = document.querySelector('.progress-bar');
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // 6. Scroll-triggered animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.animate-fadeInUp').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 7. Auto-flip cards on hover (optional)
+        let autoFlipTimeout;
+        document.querySelectorAll('.flash-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                // Auto-flip after 3 seconds of hovering
+                autoFlipTimeout = setTimeout(() => {
+                    if (!this.classList.contains('flipped')) {
+                        this.classList.add('flipped');
+                    }
+                }, 3000);
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                // Clear the timeout if user moves away
+                clearTimeout(autoFlipTimeout);
+            });
+        });
+    </script>
+</body>
+</html>
