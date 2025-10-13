@@ -1075,12 +1075,12 @@
         </button>
     </div>
 </section>
-
 <script>
     // Filter functionality
     document.addEventListener('DOMContentLoaded', function() {
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.image-hover');
+        // FIXED: Selector is now specific to #gallery, ignoring event cards
+        const galleryItems = document.querySelectorAll('#gallery .image-hover'); 
         
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -1122,24 +1122,36 @@
                 modalImage.alt = imgAlt;
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // Lock main scroll
             });
         });
         
-        closeModal.addEventListener('click', function() {
+        const closeImageModal = function() {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-        });
+            // Check if the other modal is open before restoring scroll
+            if (document.getElementById('event-detail').classList.contains('hidden')) {
+                document.body.style.overflow = 'auto';
+            }
+        };
+
+        closeModal.addEventListener('click', closeImageModal);
         
         // Close modal when clicking outside the image
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
+                closeImageModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeImageModal();
             }
         });
     });
 </script>
-
         <!-- Contact & Useful Links Section -->
         <section id="contact" class="py-20 bg-gray-800 text-white section-bg">
             <div class="container mx-auto px-6 text-center">
@@ -2090,6 +2102,7 @@
 </script>
 </body>
 </html>
+
 
 
 
