@@ -575,9 +575,34 @@
         transform: scale(1) translateY(0);
     }
 }
+        /* START: CSS for Top Ticker Animation */
+        .animate-marquee {
+            display: inline-block;
+            animation: marquee 40s linear infinite;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .group:hover .animate-marquee {
+            animation-play-state: paused;
+        }
+        /* END: CSS for Top Ticker Animation */
     </style>
 </head>
 <body class="bg-white">
+    <a href="https://www.ieee.org/membership/join/index.html" id="top-ticker" target="_blank" class="fixed top-0 left-0 right-0 z-[60] bg-primary hover:bg-dark-orange transition-colors duration-300 text-white block w-full py-2.5 overflow-hidden group">
+    <div class="flex whitespace-nowrap animate-marquee">
+        <span class="mx-8 text-md font-bold tracking-wider">
+            LIMITED TIME OFFER: REGISTER NOW for IEEE Membership & Get a FREE Computer Society Membership! &rarr;
+        </span>
+        <span class="mx-8 text-md font-bold tracking-wider">
+            LIMITED TIME OFFER: REGISTER NOW for IEEE Membership & Get a FREE Computer Society Membership! &rarr;
+        </span>
+        </div>
+</a>
 
     <!-- Progress Bar -->
     <div class="progress-bar"></div>
@@ -2046,9 +2071,33 @@
             closeEventDetails();
         }
     });
+    // ----- START: New code for Top Ticker -----
+        document.addEventListener('DOMContentLoaded', function() {
+            const topTicker = document.getElementById('top-ticker');
+            const header = document.getElementById('header');
+            
+            if (topTicker && header) {
+                const tickerHeight = topTicker.offsetHeight;
+                
+                // Set the initial position of the header below the ticker
+                header.style.top = `${tickerHeight}px`;
+                header.style.transition = 'top 0.3s ease'; // Add a smooth transition for the movement
+                
+                // This new scroll listener will move the header up when the user scrolls
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        header.style.top = '0px'; // On scroll, move header to the absolute top
+                    } else {
+                        header.style.top = `${tickerHeight}px`; // When back at the top, position it below the ticker
+                    }
+                });
+            }
+        });
+        // ----- END: New code for Top Ticker -----
 </script>
 </body>
 </html>
+
 
 
 
