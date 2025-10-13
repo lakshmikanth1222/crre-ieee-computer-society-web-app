@@ -912,50 +912,205 @@
         <!-- Gallery Section -->
 <section id="gallery" class="py-20 bg-light-orange section-bg">
     <div class="container mx-auto px-6">
-        <h2 class="section-title text-4xl font-bold text-center mb-12 animate-textShine">Event Moments</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="grid gap-4">
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (1).png" alt="IEEE Computer Society Event - Workshop Session" loading="lazy">
-                </div>
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 100ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (2).png" alt="IEEE Computer Society Event - Team Photo" loading="lazy">
+        <h2 class="section-title text-4xl font-bold text-center mb-4 animate-textShine">Event Moments</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Relive the memorable moments from our IEEE Computer Society events, workshops, and activities</p>
+        
+        <!-- Filter buttons -->
+        <div class="gallery-filter mb-10">
+            <button class="filter-btn active" data-filter="all">All Events</button>
+            <button class="filter-btn" data-filter="workshop">Workshops</button>
+            <button class="filter-btn" data-filter="hackathon">Hackathons</button>
+            <button class="filter-btn" data-filter="lecture">Guest Lectures</button>
+            <button class="filter-btn" data-filter="social">Social Events</button>
+        </div>
+        
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Workshop Events -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="workshop">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (1).png" alt="IEEE Computer Society Event - Workshop Session" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Workshop Session</h3>
+                            <p class="text-sm">Hands-on learning experience</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="grid gap-4">
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 200ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (3).png" alt="IEEE Computer Society Event - Hackathon" loading="lazy">
-                </div>
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 300ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (4).png" alt="IEEE Computer Society Event - Guest Lecture" loading="lazy">
-                </div>
-            </div>
-            <div class="grid gap-4">
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 400ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (5).png" alt="IEEE Computer Society Event - Project Expo" loading="lazy">
-                </div>
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 500ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (6).png" alt="IEEE Computer Society Event - Award Ceremony" loading="lazy">
+            
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="social" style="transition-delay: 100ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (2).png" alt="IEEE Computer Society Event - Team Photo" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Team Photo</h3>
+                            <p class="text-sm">Our amazing community</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="grid gap-4">
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 600ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (7).png" alt="IEEE Computer Society Event - Networking Session" loading="lazy">
+            
+            <!-- Hackathon Events -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="hackathon" style="transition-delay: 200ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (3).png" alt="IEEE Computer Society Event - Hackathon" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Hackathon</h3>
+                            <p class="text-sm">Innovation in action</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="fade-in-item image-hover rounded-lg overflow-hidden glow" style="transition-delay: 700ms;">
-                    <img class="h-auto max-w-full shadow-md" src="gallery (8).png" alt="IEEE Computer Society Event - Group Activity" loading="lazy">
+            </div>
+            
+            <!-- Guest Lectures -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="lecture" style="transition-delay: 300ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (4).png" alt="IEEE Computer Society Event - Guest Lecture" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Guest Lecture</h3>
+                            <p class="text-sm">Learning from industry experts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Expo -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="workshop" style="transition-delay: 400ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (5).png" alt="IEEE Computer Society Event - Project Expo" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Project Expo</h3>
+                            <p class="text-sm">Showcasing student projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Award Ceremony -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="social" style="transition-delay: 500ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (6).png" alt="IEEE Computer Society Event - Award Ceremony" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Award Ceremony</h3>
+                            <p class="text-sm">Celebrating achievements</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Networking Session -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="social" style="transition-delay: 600ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (7).png" alt="IEEE Computer Society Event - Networking Session" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Networking Session</h3>
+                            <p class="text-sm">Building connections</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Group Activity -->
+            <div class="fade-in-item image-hover rounded-xl overflow-hidden glow" data-category="social" style="transition-delay: 700ms;">
+                <div class="relative overflow-hidden h-64">
+                    <img class="w-full h-full object-cover" src="gallery (8).png" alt="IEEE Computer Society Event - Group Activity" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div class="text-white">
+                            <h3 class="font-bold text-lg">Group Activity</h3>
+                            <p class="text-sm">Team building exercises</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- Optional: Add a button to view more photos -->
         <div class="text-center mt-12 fade-in-item">
-            <button class="bg-primary text-white py-3 px-8 rounded-full font-semibold hover:bg-dark-orange transition duration-300 shadow-lg">
+            <button class="bg-gradient-to-r from-[#ff6b35] to-[#ff8e53] text-white py-3 px-8 rounded-full font-semibold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
                 <i class="fas fa-images mr-2"></i>View More Photos
             </button>
         </div>
     </div>
+    
+    <!-- Modal for enlarged image view -->
+    <div id="imageModal" class="modal fixed inset-0 z-50 hidden items-center justify-center bg-black/90">
+        <div class="modal-content max-w-4xl max-h-full p-4">
+            <img id="modalImage" src="" alt="" class="w-full h-auto rounded-lg">
+        </div>
+        <button id="closeModal" class="absolute top-4 right-4 text-white text-3xl hover:text-[#ff6b35] transition-colors">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
 </section>
+
+<script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.image-hover');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                const imgAlt = this.querySelector('img').alt;
+                modalImage.src = imgSrc;
+                modalImage.alt = imgAlt;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            });
+        });
+        
+        closeModal.addEventListener('click', function() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+        
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+    });
+</script>
 
         <!-- Contact & Useful Links Section -->
         <section id="contact" class="py-20 bg-gray-800 text-white section-bg">
@@ -1895,4 +2050,5 @@
 </script>
 </body>
 </html>
+
 
