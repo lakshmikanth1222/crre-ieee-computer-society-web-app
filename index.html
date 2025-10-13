@@ -2079,24 +2079,15 @@
             if (topTicker && header) {
                 const tickerHeight = topTicker.offsetHeight;
                 
-                // Set the initial position of the header below the ticker
+                // This permanently positions the header below the top ticker bar
                 header.style.top = `${tickerHeight}px`;
-                header.style.transition = 'top 0.3s ease'; // Add a smooth transition for the movement
-                
-                // This new scroll listener will move the header up when the user scrolls
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        header.style.top = '0px'; // On scroll, move header to the absolute top
-                    } else {
-                        header.style.top = `${tickerHeight}px`; // When back at the top, position it below the ticker
-                    }
-                });
             }
         });
         // ----- END: New code for Top Ticker -----
 </script>
 </body>
 </html>
+
 
 
 
