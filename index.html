@@ -1579,6 +1579,7 @@
                 'Certificate of participation for all competitors'
             ],
             registration: 'Registration is open to all IEEE student members. Teams must consist of exactly three members from the same student branch. Early registration is encouraged as spots are limited.',
+            registrationLink: 'https://forms.gle/c8oSkjQX9E5ePFFPA',
             gallery: [
                 'https://placehold.co/300x200/F97316/FFFFFF?text=Past+Event+1',
                 'https://placehold.co/300x200/EA580C/FFFFFF?text=Past+Event+2',
@@ -2057,15 +2058,21 @@
                     </div>
                     ` : ''}
                     
-                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                        <button class="bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-dark-orange transition-colors flex items-center justify-center">
-                            <i class="fas fa-user-plus mr-2"></i>
-                            Register Now
-                        </button>
-                        <button onclick="closeEventDetails()" class="border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
-                            Close
-                        </button>
-                    </div>
+                   <div class="flex flex-col sm:flex-row gap-4 mt-8">
+              ${eventData.registrationLink
+                  ? `<a href="${eventData.registrationLink}" target="_blank" rel="noopener noreferrer" class="bg-primary text-white py-3 px-6 rounded-lg font-semibold hover:bg-dark-orange transition-colors flex items-center justify-center">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Register Now
+                    </a>`
+                  : `<button class="bg-gray-400 text-white py-3 px-6 rounded-lg font-semibold cursor-not-allowed flex items-center justify-center" disabled>
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Register Now
+                    </button>`
+              }
+              <button onclick="closeEventDetails()" class="border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+                  Close
+              </button>
+          </div>
                 </div>
             </div>
         `;
@@ -2102,6 +2109,7 @@
 </script>
 </body>
 </html>
+
 
 
 
